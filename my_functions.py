@@ -27,22 +27,22 @@ def check_price(i, fuel, imported, profit, EV_fee, license_fee, counter_EV, coun
     else:
         return i_profit
     
-def infoPage(N, profit, size, budget, S, C):
+def infoPage(N, profit, size, budget, parkCapacity, spent):
     print("Total Number of cars ready to sell: ", N)
     print("Total car value: $",np.sum(profit))
     print("Total Size of cars: ",size, "m^2")
     print("Total buying cost amount: $", sum(budget))
     print("------------------------------------------")
-    print("Parking Lot Capacity: ",S, "m^2")
-    print("Available Budget Amount: $", C)
+    print("Parking Lot Capacity: ",parkCapacity, "m^2")
+    print("Available Budget Amount: $", spent)
 
-def runOG(items, profit, s, budget):
+def runOG(items, profit, size, budget):
     print("---------------------------------------------------------------")
     print("Dealership Decision Optimizer Greedy System(D-DOGS) is optimizing....")
     print("---------------------------------------------------------------")
     print(len(items), "cars sold")
     print("Profit: $", sum(profit[items]))
-    print("Actual Size of cars sold: ", sum(s[items]), "m^2")
+    print("Actual Size of cars sold: ", sum(size[items]), "m^2")
     print("Actual budget spent: $", sum(budget[items]))
 
 
@@ -53,10 +53,10 @@ def check_EV(i, fuel):
 def check_import(i, imported):
     return (imported[i] == 1)
 
-def check_constraints(items, s, budget, S, C):
-    total_size = sum([s[k] for k in items])
-    total_budget = sum([budget[k] for k in items])
-    if ((total_size > S) or (total_budget > C)):
+def check_constraints(items, size, cost, parkCapacity, dealBudget):
+    total_size = sum([size[k] for k in items])
+    total_cost = sum([cost[k] for k in items])
+    if ((total_size > parkCapacity) or (total_cost > dealBudget)):
         items.pop()
         return True
     else:
@@ -65,7 +65,7 @@ def check_constraints(items, s, budget, S, C):
 def ddog_size(items,fuel, imported, 
               value_per_size,
               profit, EV_fee, license_fee, 
-              s, budget, S,C, 
+              size, cost, parkCapacity,dealBudget, 
               counter_EV, counter_import, should_break):
     while True:
         # Find the most valuable item
@@ -87,7 +87,7 @@ def ddog_size(items,fuel, imported,
                 elif check_import(i, imported):
                     Update_Import(counter_import)
                 value_per_size[i] = 0  
-                if(check_constraints(items, s, budget, S, C)):
+                if(check_constraints(items, size, cost, parkCapacity, dealBudget)):
                     should_break=True
             else:
                 items.append(j)
@@ -97,7 +97,7 @@ def ddog_size(items,fuel, imported,
                 elif check_import(j, imported):
                     Update_Import(counter_import)
                 value_per_size[j] = 0  
-                if(check_constraints(items, s, budget, S, C)):
+                if(check_constraints(items, size, cost,parkCapacity, dealBudget)):
                     should_break=True
         if (should_break):
             break
@@ -107,7 +107,7 @@ def ddog_size(items,fuel, imported,
 def ddog_budget(items,fuel, imported, 
               value_per_budget,
               profit, EV_fee, license_fee, 
-              s, budget, S,C,
+              size, cost, parkCapacity,dealBudget,
               counter_EV, counter_import, should_break):
     while True:
         # Find the most valuable item
@@ -129,7 +129,7 @@ def ddog_budget(items,fuel, imported,
                 elif check_import(i, imported):
                     Update_Import(counter_import)
                 value_per_budget[i] = 0  
-                if(check_constraints(items, s, budget, S, C)):
+                if(check_constraints(items, size, cost, parkCapacity, dealBudget)):
                     should_break=True
             else:
                 items.append(j)
@@ -139,7 +139,7 @@ def ddog_budget(items,fuel, imported,
                 elif check_import(j, imported):
                     Update_Import(counter_import)
                 value_per_budget[j] = 0  
-                if(check_constraints(items, s, budget, S, C)):
+                if(check_constraints(items, size, cost, parkCapacity, dealBudget)):
                     should_break=True
         if (should_break):
             break
