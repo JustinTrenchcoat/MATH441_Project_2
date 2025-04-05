@@ -17,9 +17,19 @@ We have a set of cars of different sizes and values and a parking lot at the dea
 ### Identify Constraints and Make Assumptions
 
 * Total area of the parked items is less than the parking lot capacity
+* Total budget available is less then the total amount required to buy every car on the list.
 
 #### Data Generation
 The `DataGenereation.ipynb` pulls the `data/used_cars.csv` file, cleans it, assigns new columns `Buying Price`, `Profit`, `size` and `imported`, then export the dataframe as `data/complete_data.csv` for analysis
 
+#### Function Storate
+The `my_function.py` stores the functions needed for algorithms.
+
 #### Data Analysis
-The `analysis2.0.ipynb` analyzes the data, applies CVXPY algorithm and greedy algorithm, and produces optimized buying and selling strategy for car dealership. To genereate the same result as shown in the report, run the `analysis2.0.ipynb` only, as the data generation script would assign random value and generate new datasets.
+- The `cvxpy.ipynb` applies CVXPY algorithm and run some algorithm visualization.   
+- The `greedy_size.ipynb` applies greedy algorithm based on profit-size ratio and run some algorithm visualization.   
+- The `greedy_budget.ipynb` applies greedy algorithm based on profit-budget ratio and run some algorithm visualization.   
+- The `dataset_visualization.ipynb` provides some visualization for the dataset itself.
+- The `data_analysis.ipynb` runs sensitivity analysis on the two greedy algorithm.
+
+To genereate the same result as shown in the report, run those five files only, as the `DataGenereation.ipynb` script would assign random value and generate new datasets, which would be different than what we have.
