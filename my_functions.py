@@ -33,8 +33,8 @@ def check_price(i, fuel, imported, profit, EV_fee, license_fee, counter_EV, coun
 def infoPage(N, profit, size, budget, parkCapacity, spent):
     print("Total Number of cars ready to sell: ", N)
     print("Total car value: $",np.sum(profit).round(2))
-    print("Total Size of cars: ",size.round(2), "m^2")
-    print("Total buying cost amount: $", sum(budget).round(2))
+    print("Total Size of cars: ",size, "m^2")
+    print("Total buying cost amount: $", budget)
     print("------------------------------------------")
     print("Parking Lot Capacity: ",parkCapacity.round(2), "m^2")
     print("Available Budget Amount: $", spent.round(2))
@@ -45,8 +45,8 @@ def runOG(items, profit, size, budget):
     print("---------------------------------------------------------------")
     print(len(items), "cars sold")
     print("Profit: $", sum(profit[items]).round(2))
-    print("Actual Size of cars sold: ", sum(size[items]).round(2), "m^2")
-    print("Actual budget spent: $", sum(budget[items]).round(2))
+    print("Actual Size of cars sold: ", sum(size[items]), "m^2")
+    print("Actual budget spent: $", sum(budget[items]))
 
 
 # check if the car i is EV or imported
